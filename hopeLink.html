@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <style>
+        /* Inline styles for simplicity; consider moving to styles.css */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8; /* Light background color */
+        }
+        header {
+            background-color: #007bff; /* Bootstrap primary color */
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+            animation: fadeIn 1s; /* Animation for header */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        nav li {
+            margin-right: 20px;
+        }
+        input {
+            width: calc(100% - 16px);
+            padding: 8px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            border: 1px solid #007bff; /* Primary border color */
+            margin-top: 20px;
+            max-width: 400px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2em;
+        }
+        section {
+            background-color: #ffffff; /* White background for sections */
+            padding: 2em;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            animation: slideIn 0.5s; /* Slide-in animation */
+        }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker shade for hover */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .donation-form {
+            align-items: center;
+        }
+        #donation-form label {
+            margin-bottom: 10px;
+        }
+        #donation-form input, #donation-form select {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+        }
+        #submit-btn {
+            background-color: #28a745; /* Success color */
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #submit-btn:hover {
+            background-color: #218838; /* Darker shade for hover */
+        }
+        .nav-text {
+            font-weight: bold;
+            font-size: 30px;
+            border-style: solid;
+            border-width: 3px;
+            border-color: #0be60bcb;
+            border-radius: 20px;
+        }
+        .nav-text2 {
+            font-weight: bold;
+            font-size: 20px;
+            border-style: solid;
+            border-width: 3px;
+            border-color: #0be60bcb;
+            border-radius: 20px;
+        }
+        .item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #e9ecef; /* Light background for items */
+        }
+        /* Added styles for images */
+        .img-header {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            animation: fadeIn 1s;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sectionHome">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:rgb(255, 255, 255);">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <div class="d-flex flex-row justify-content-left">
+                        <div class="nav-text">
+                            <span class="p-3 pb-2">Hope</span>
+                        </div>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse text-left" id="navbarNavAltMarkup">
+                    <div class="navbar-nav ml-auto">
+                        <a class="nav-link active" id="navItem1" href="#sectionHome">Home</a>
+                        <a class="nav-link" href="#sectionAbout" id="navItem2">About Us</a>
+                        <a class="nav-link" href="#sectionContact" id="navItem5">Contact Us</a>
+                        <button class="w-25 btn btn-outline-success" onclick="display('sectionLogin')">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <main class="p-5 mt-5 d-flex flex-column justify-content-center">
+            <section id="home" class="shadow-lg">
+                <h1>Welcome to our Donation App Hope Link</h1>
+                <p>Make a difference in someone's life today!</p>
+            </section>
+            <section id="about" class="shadow-lg">
+                <h1>About Us</h1>
+                <p>We are a non-profit organization dedicated to helping those in need.</p>
+            </section>
+            <button class="btn btn-outline-success text-dark" onclick="display('sectionLogin')">Explore</button>
+        </main>
+    </div>
+
+    <!-- Login Page -->
+    <div id="sectionLogin" class="container d-none">
+        <div class="row">
+            <p onclick="display('sectionHome')" class="mt-3">
+                <span class="nav-text2 p-2 pb-2">Hope</span>
+            </p>
+            <div class="col-12 col-md-6">
+                <div class="user mt-5">
+                    <section id="Donate">
+                        <h1>Sign in to Donate</h1>
+                        <form id="donorForm">
+                            <label for="donorLogin">LOGIN ID:</label>
+                            <input type="number" id="donorLogin" min="1" max="100000000" required><br>
+                            <label for="donorPassword">PASSWORD:</label>
+                            <input type="password" id="donorPassword" required><br>
+                            <button type="submit" class="btn btn-success text-center mt-2">Sign In</button>
+                        </form>
+                    </section>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div id="Receive">
+                    <h1>Sign in to Receive</h1>
+                    <form id="receiverForm">
+                        <label for="receiverLogin">LOGIN ID:</label>
+                        <input type="number" id="receiverLogin" min="1" max="100000000" required><br>
+                        <label for="receiverPassword">PASSWORD:</label>
+                        <input type="password" id="receiverPassword" required><br>
+                        <button type="submit" class="btn btn-success text-center mt-2">Sign In</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Donation Login Page-->
+    <div id="sectionDonate" class="container d-none">
+        <p onclick="display('sectionHome')" class="mt-3">
+            <span class="nav-text2 p-2 pb-2">Hope</span>
+        </p>
+        <div>
+            <h1>Donate What You Have</h1>
+            <form class="donation-form">
+                <p>
+                    Describe the item
+                </p>
+                <div class="container mt-5">
+                    <h1>Select a Category</h1>
+                    <label for="categorySelect">Choose a category that Item Belongs to:</label>
+                    <select id="categorySelect" class="form-control">
+                        <option value="">--Select a category--</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="furniture">Furniture</option>
+                        <option value="toys">Toys</option>
+                        <option value="books">Books</option>
+                        <option value="others">Other</option>
+                    </select>
+                </div>
+                <label for="donationItems">Item:</label>
+                <input type="text" id="donationItems" required><br>
+                <label for="donationAddress">Address:</label>
+                <input type="text" id="donationAddress" required>
+                <div class="d-flex flex-row justify-content-left">
+                    <button type="button" class="btn btn-success mt-2 text-center" data-toggle="modal" data-target="#donationModal">
+                        Donate
+                    </button>
+                    <div class="modal fade" id="donationModal" tabindex="-1" aria-labelledby="donationModalLabel" aria-hidden="true">
+                        <div class="modal-dialog mt-5">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="donationModalLabel">Donation Status</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="nav-text2 p-2">Donated Successfully<br>Thank you!</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+   <!-- Updated Receiver Page -->
+<div id="sectionReceive" class="container d-none">
+    <p onclick="display('sectionHome')" class="mt-3">
+        <span class="nav-text2 p-2 pb-2">Hope</span>
+    </p>
+    <div>
+        <h1>Get the Right Things</h1>
+        <div class="container mt-5">
+            <h1>Available Items</h1>
+            <div id="itemContainer"></div>
+        </div>
+        <!-- Modal for Order Confirmation -->
+        <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="orderModalLabel">Order Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="orderModalBody">
+                        <!-- Order details will be injected here -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            const items = [
+                // Category: Clothing
+                { name: "T-Shirt", category: "Clothing"},
+                { name: "Jeans", category: "Clothing" },
+                { name: "Sweater", category: "Clothing" },
+                { name: "Jacket", category: "Clothing" },
+                { name: "Hat", category: "Clothing" },
+                { name: "Socks", category: "Clothing" },
+                { name: "Scarf", category: "Clothing" },
+                { name: "Shorts", category: "Clothing" },
+                { name: "Dress", category: "Clothing" },
+                { name: "Coat", category: "Clothing" },
+        
+                // Category: Electronics
+                { name: "Smartphone", category: "Electronics" },
+                { name: "Laptop", category: "Electronics" },
+                { name: "Tablet", category: "Electronics" },
+                { name: "Headphones", category: "Electronics" },
+                { name: "Smartwatch", category: "Electronics" },
+                { name: "Camera", category: "Electronics" },
+                { name: "Speaker", category: "Electronics" },
+                { name: "Monitor", category: "Electronics" },
+                { name: "Keyboard", category: "Electronics" },
+                { name: "Mouse", category: "Electronics" },
+        
+                // Category: Furniture
+                { name: "Sofa", category: "Furniture" },
+                { name: "Table", category: "Furniture" },
+                { name: "Chair", category: "Furniture" },
+                { name: "Bed", category: "Furniture" },
+                { name: "Cabinet", category: "Furniture" },
+                { name: "Desk", category: "Furniture" },
+                { name: "Bookshelf", category: "Furniture" },
+                { name: "Dresser", category: "Furniture" },
+                { name: "Nightstand", category: "Furniture" },
+                { name: "Bench", category: "Furniture" },
+        
+                // Category: Toys
+                { name: "Action Figure", category: "Toys" },
+                { name: "Doll", category: "Toys" },
+                { name: "Puzzle", category: "Toys" },
+                { name: "Board Game", category: "Toys" },
+                { name: "Building Blocks", category: "Toys" },
+                { name: "Remote Control Car", category: "Toys" },
+                { name: "Stuffed Animal", category: "Toys" },
+                { name: "Toy Train", category: "Toys" },
+                { name: "Educational Toy", category: "Toys" },
+                { name: "Play-Doh", category: "Toys" },
+        
+                // Category: Books
+                { name: "Fiction Book", category: "Books" },
+                { name: "Non-Fiction Book", category: "Books" },
+                { name: "Cookbook", category: "Books" },
+                { name: "Biography", category: "Books" },
+                { name: "Science Fiction", category: "Books" },
+                { name: "Fantasy Book", category: "Books" },
+                { name: "Mystery Novel", category: "Books" },
+                { name: "Self-Help Book", category: "Books" },
+                { name: "Textbook", category: "Books" },
+                { name: "Children's Book", category: "Books" },
+            ];
+
+            const itemContainer = document.getElementById('itemContainer');
+
+            function getRandomAvailability() {
+                return Math.random() < 0.5 ? "Available" : "Unavailable";
+            }
+
+            function generateOrderId() {
+                return 'ORD' + Math.floor(Math.random() * 1000000);
+            }
+
+            function getRandomArrivalPeriod() {
+                const periods = ["1-3 days", "3-5 days", "1 week", "2 weeks", "1 month"];
+                return periods[Math.floor(Math.random() * periods.length)];
+            }
+
+            items.forEach(item => {
+                const availabilityStatus = getRandomAvailability(); // Get random status
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item d-flex justify-content-between align-items-center'; // Flexbox for alignment
+                itemDiv.innerHTML = `
+                    <div>
+                        <strong>${item.name}</strong><br>Category: ${item.category}
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="${availabilityStatus === "Available" ? 'text-success' : 'text-danger'} mr-2">${availabilityStatus}</span>
+                        <button class="btn btn-success" onclick="placeOrder('${item.name}')">Place Order</button>
+                    </div>
+                `;
+                itemContainer.appendChild(itemDiv);
+            });
+
+            function placeOrder(itemName) {
+                const orderId = generateOrderId(); // Generate random order ID
+                const arrivalPeriod = getRandomArrivalPeriod(); // Get random arrival period
+                
+                // Injecting the order details into the modal body
+                document.getElementById('orderModalBody').innerHTML = `
+                    <p>Item: <strong>${itemName}</strong></p>
+                    <p>Order ID: <strong>${orderId}</strong></p>
+                    <p>Estimated Arrival: <strong>${arrivalPeriod}</strong></p>
+                `;
+
+                // Show the modal
+                $('#orderModal').modal('show');
+            }
+        </script>
+    </div>
+</div>
+
+
+    <script type="text/javascript">
+        function display(sectionId) {
+            const sections = ['sectionHome', 'sectionLogin', 'sectionDonate', 'sectionReceive'];
+            sections.forEach(id => {
+                document.getElementById(id).classList.add('d-none');
+            });
+            document.getElementById(sectionId).classList.remove('d-none');
+        }
+
+        document.getElementById('donorForm').onsubmit = function(e) {
+            e.preventDefault();
+            display('sectionDonate');
+        };
+
+        document.getElementById('receiverForm').onsubmit = function(e) {
+            e.preventDefault();
+            display('sectionReceive');
+        };
+    </script>
+</body>
+</html>
